@@ -11,7 +11,7 @@ from openai import OpenAI
 
 # API KEYS
 BOT_TOKEN  =  os.getenv("8798624920:AAEZVAl8qd5tSRkA14Z445zWDSSzK3KSxdE")
-OPENAI_API_KEY=  os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY=  "sk-sening_haqiqiy_Keying"
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
@@ -144,6 +144,7 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 app.run_polling()
+
 
 
 
