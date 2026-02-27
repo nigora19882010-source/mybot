@@ -1,8 +1,9 @@
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import random
+import os
 
-TOKEN = "8798624920:AAGaGN81cH0dJUC0RFtW08qj9qL0lU8zzyI"
+TOKEN = os.getenv("BOT_TOKEN")
 
 # Foydalanuvchi tanlagan tilni saqlaymiz
 user_language = {}
@@ -56,7 +57,6 @@ texts = {
     }
 }
 
-# Speaking savollar (English qoldiramiz universal uchun)
 speaking_questions = [
     "Describe your hometown.",
     "What do you do in your free time?",
@@ -65,7 +65,6 @@ speaking_questions = [
     "What is your favorite subject?"
 ]
 
-# /start komandasi
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["🇺🇿 Uzbek", "🇬🇧 English"],
@@ -75,12 +74,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     await update.message.reply_text("🌍 Please choose your language:", reply_markup=reply_markup)
 
-# Xabarlarni boshqarish
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     user_id = update.message.from_user.id
 
-    # Til tanlash
     if text == "🇺🇿 Uzbek":
         user_language[user_id] = "uz"
     elif text == "🇬🇧 English":
@@ -92,7 +89,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif text == "🇸🇦 Arabic":
         user_language[user_id] = "ar"
 
-    # Agar til tanlangan bo‘lsa menyu chiqadi
     if user_id in user_language:
         lang = user_language[user_id]
         keyboard = [
